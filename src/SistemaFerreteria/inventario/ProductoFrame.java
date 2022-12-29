@@ -10,7 +10,10 @@ import Sistema_FerreteriaErick.pojos.Producto;
 import Sistema_FerreteriaErick.pojos.Proveedor;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -79,6 +82,7 @@ public class ProductoFrame extends javax.swing.JDialog {
         boxImagenProd = new javax.swing.JLabel();
         comboProveedores = new javax.swing.JComboBox<>();
         comboCategorias = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -91,23 +95,21 @@ public class ProductoFrame extends javax.swing.JDialog {
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 40, 330, 110));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Descripcion:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Clave:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 230, -1, -1));
         jPanel1.add(boxClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 260, 36));
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Precio de Compra:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 232, -1, -1));
+
+        boxCompra.setText("0");
         jPanel1.add(boxCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 257, 130, 33));
 
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Unidad de Medida:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 235, -1, -1));
 
@@ -115,24 +117,29 @@ public class ProductoFrame extends javax.swing.JDialog {
         jPanel1.add(boxUnidades, new org.netbeans.lib.awtextra.AbsoluteConstraints(159, 257, 88, 33));
 
         jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Proveedor:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 347, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Precio Venta:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 308, -1, -1));
+
+        boxVenta.setText("0");
         jPanel1.add(boxVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 333, 130, 33));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Stock Requerido:");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 310, 100, -1));
+
+        boxStock.setText("0");
+        boxStock.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boxStockActionPerformed(evt);
+            }
+        });
         jPanel1.add(boxStock, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, 100, 33));
 
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Categoria:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 440, -1, -1));
 
@@ -148,7 +155,6 @@ public class ProductoFrame extends javax.swing.JDialog {
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 450, 121, 53));
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
         jLabel10.setText("Nombre:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 290, -1, -1));
 
@@ -191,6 +197,14 @@ public class ProductoFrame extends javax.swing.JDialog {
         comboCategorias.setModel(modeloCategorias);
         jPanel1.add(comboCategorias, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 250, 40));
 
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 170, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 640, 520));
 
         pack();
@@ -230,17 +244,32 @@ public class ProductoFrame extends javax.swing.JDialog {
         double precioCompra = Double.parseDouble(boxCompra.getText());
         double precioVenta = Double.parseDouble(boxVenta.getText());
         String unidad = boxUnidades.getSelectedItem().toString();
-        CategoriaProd categoria = (CategoriaProd)comboProveedores.getSelectedItem();
-        Proveedor proveedor = (Proveedor)comboCategorias.getSelectedItem();
+        CategoriaProd categoria = (CategoriaProd)comboCategorias.getSelectedItem();
+        Proveedor proveedor = (Proveedor)comboProveedores.getSelectedItem();
         if(imgArticleFile == null){
             JOptionPane.showMessageDialog(this,"No ha elegidouna fotografia para el producto");
         }else{
             Producto producto = new Producto(codigo, nombre, descripcion, stock, imgArticleFile, unidad, precioCompra, precioVenta, 0.0, categoria.getIdCategoriaProd(), proveedor.getIdProveedor());
-            base.insertarProducto(producto);
+            try
+            {
+                base.insertarProducto(producto);
+            } catch (FileNotFoundException ex)
+            {
+                Logger.getLogger(ProductoFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(this,"Se realizo correctamente la insercion del Producto");
             this.dispose();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void boxStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxStockActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_boxStockActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        BaseDatos base = new BaseDatos();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -299,6 +328,7 @@ public class ProductoFrame extends javax.swing.JDialog {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<CategoriaProd> comboCategorias;
     private javax.swing.JComboBox<Proveedor> comboProveedores;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

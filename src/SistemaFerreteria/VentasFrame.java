@@ -27,7 +27,7 @@ public class VentasFrame extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        boxProducto = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -40,14 +40,14 @@ public class VentasFrame extends javax.swing.JInternalFrame {
         jButton4 = new javax.swing.JButton();
         jSpinner2 = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        boxImporte = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        boxCliente = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
-        jSpinner1 = new javax.swing.JSpinner();
+        boxCantidad = new javax.swing.JSpinner();
 
         setBackground(new java.awt.Color(204, 204, 204));
         setTitle("Ventas");
@@ -58,22 +58,22 @@ public class VentasFrame extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Buscar Produco por Nombre/ Clave:");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 620, 34));
+        getContentPane().add(boxProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 620, 34));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Clave", "Nombre de producto", "Precio", "Cantidad", "Importe", "DNI", "Nombre del cliente"
+                "Clave", "Producto", "Precio", "Cantidad", "DNI", "Cliente"
             }
         ));
         jTable1.setGridColor(new java.awt.Color(0, 0, 0));
@@ -167,20 +167,20 @@ public class VentasFrame extends javax.swing.JInternalFrame {
         jLabel6.setText("Importe:");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 220, -1, -1));
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        boxImporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                boxImporteActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 250, 30));
+        getContentPane().add(boxImporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 250, 250, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Buscar cliente por DNI/Nombre:");
         getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
-        jTextField4.setMinimumSize(new java.awt.Dimension(5, 170));
-        getContentPane().add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 620, 34));
+        boxCliente.setMinimumSize(new java.awt.Dimension(5, 170));
+        getContentPane().add(boxCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 620, 34));
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -196,7 +196,7 @@ public class VentasFrame extends javax.swing.JInternalFrame {
 
         jButton2.setText("Quitar  Producto");
         getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 510, 210, 40));
-        getContentPane().add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 250, 34));
+        getContentPane().add(boxCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 250, 34));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -205,12 +205,16 @@ public class VentasFrame extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void boxImporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boxImporteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_boxImporteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JSpinner boxCantidad;
+    private javax.swing.JTextField boxCliente;
+    private javax.swing.JTextField boxImporte;
+    private javax.swing.JTextField boxProducto;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -227,11 +231,7 @@ public class VentasFrame extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     // End of variables declaration//GEN-END:variables
 }

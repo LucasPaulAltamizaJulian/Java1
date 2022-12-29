@@ -1,6 +1,9 @@
 package SistemaFerreteria;
+import Sistema_Ferreteria.Datos.BaseDatos;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 public class Login extends javax.swing.JFrame {
+    BaseDatos base= new BaseDatos();
     public Login() {
         initComponents();
     }
@@ -18,8 +21,8 @@ public class Login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        boxUsuario = new javax.swing.JTextField();
+        boxPassword = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -43,12 +46,8 @@ public class Login extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel5.setText("Usuario:");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
-
-        jTextField1.setText("jTextField1");
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 270, 40));
-
-        jPasswordField1.setText("jPasswordField1");
-        jPanel2.add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 270, 40));
+        jPanel2.add(boxUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 270, 40));
+        jPanel2.add(boxPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 270, 40));
 
         jButton1.setText("Iniciar Sesion");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -99,9 +98,19 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        Principal ven=new Principal();
+        String user=boxUsuario.getText();
+        String pass = new String(boxPassword.getPassword());
+        System.out.println(pass);
+        String verificacion=base.obtenerAcceso(user);
+        System.out.println(verificacion);
+        if(pass == null ? verificacion == null : pass.equals(verificacion)){
+            Principal ven=new Principal();
         ven.setVisible(true);
         this.dispose();
+        }else{
+            JOptionPane.showMessageDialog(null, "Contraseña Incorrecta");
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
@@ -114,7 +123,7 @@ public class Login extends javax.swing.JFrame {
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
         try {
-           UIManager.setLookAndFeel("com.jtattoo.plaf.hifi.HiFiLookAndFeel");
+           UIManager.setLookAndFeel("com.jtattoo.plaf.acryl.AcrylLookAndFeel");
         } catch (ClassNotFoundException ex) {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
@@ -135,6 +144,8 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField boxPassword;
+    private javax.swing.JTextField boxUsuario;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -145,7 +156,5 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

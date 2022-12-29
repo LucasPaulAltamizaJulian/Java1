@@ -5,21 +5,60 @@
 package SistemaFerreteria;
 
 import SistemaFerreteria.personal.*;
+import Sistema_Ferreteria.Datos.BaseDatos;
+import Sistema_FerreteriaErick.pojos.Personal;
+import java.util.ArrayList;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author LAB07
- */
+
 public class PersonalFrame extends javax.swing.JInternalFrame {
-
-    /**
-     * Creates new form PersonalFrame
-     */
+    BaseDatos base = new BaseDatos();
+    DefaultTableModel modelo = new DefaultTableModel();
+    Integer personalModificar;
     public PersonalFrame() {
         initComponents();
+        columnas();
+        datosTabla();
     }
-
+    public void columnas(){
+        modelo.addColumn("DNI");
+        modelo.addColumn("Ruc");
+        modelo.addColumn("Personal");
+        modelo.addColumn("Rol");
+        modelo.addColumn("Direccion");
+        modelo.addColumn("Direccion Fiscal");
+        modelo.addColumn("Fecha Nacimiento");
+        modelo.addColumn("Inicio Contrato");
+        modelo.addColumn("Fin de Contrado");
+        modelo.addColumn("Tiempo Laborado");
+        modelo.addColumn("Sexo");
+        modelo.addColumn("Edad");
+        modelo.addColumn("Celular");
+        modelo.addColumn("Telefono");
+    }
+    public void datosTabla(){
+        ArrayList<Personal> listaPersonal=base.obtenerPersonal();
+        System.out.println(listaPersonal.size());
+        modelo.setNumRows(listaPersonal.size());
+        for(int i=0; i<listaPersonal.size();i++){
+            modelo.setValueAt(listaPersonal.get(i).getDni(), i, 0);
+            modelo.setValueAt(listaPersonal.get(i).getRuc(), i, 1);
+            modelo.setValueAt(listaPersonal.get(i).getNombrePersonal(), i, 2);
+            modelo.setValueAt(listaPersonal.get(i).getRolPersonal(), i, 3);
+            modelo.setValueAt(listaPersonal.get(i).getDirPersonal(), i, 4);
+            modelo.setValueAt(listaPersonal.get(i).getDomicilioFiscalPersonal(), i, 5);
+            modelo.setValueAt(listaPersonal.get(i).getFechaNacimientoPersonal(), i, 6);
+            modelo.setValueAt(listaPersonal.get(i).getFechFincontrato(), i, 7);
+            modelo.setValueAt(listaPersonal.get(i).getFechFincontrato(), i, 8);
+            modelo.setValueAt(listaPersonal.get(i).getTiempoLaaboradoPersonal(), i, 9);
+            modelo.setValueAt(listaPersonal.get(i).getSexoPersonal(), i, 10);
+            modelo.setValueAt(listaPersonal.get(i).getEdadPersonal(), i, 11);
+            modelo.setValueAt(listaPersonal.get(i).getCelularPersonal(), i, 12);
+            modelo.setValueAt(listaPersonal.get(i).getTelefonoPerrsonal(), i, 13);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -32,14 +71,13 @@ public class PersonalFrame extends javax.swing.JInternalFrame {
         jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaPersonal = new javax.swing.JTable();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
+        boxBuscar = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(204, 204, 204));
 
@@ -52,18 +90,8 @@ public class PersonalFrame extends javax.swing.JInternalFrame {
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "id", "nombre", "Rol", "Estado"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
+        tablaPersonal.setModel(modelo);
+        jScrollPane1.setViewportView(tablaPersonal);
 
         jButton2.setText("Eliminar Personal");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -94,12 +122,9 @@ public class PersonalFrame extends javax.swing.JInternalFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Buscar Personal por nombre / id:");
 
-        jTextField1.setText("jTextField1");
-
-        jButton5.setText("Roles de Personal");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+        boxBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                boxBuscarKeyReleased(evt);
             }
         });
 
@@ -108,28 +133,29 @@ public class PersonalFrame extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addComponent(boxBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(510, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(167, 167, 167)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(102, 102, 102)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 919, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addContainerGap(46, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 481, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 732, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,8 +163,7 @@ public class PersonalFrame extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -146,14 +171,14 @@ public class PersonalFrame extends javax.swing.JInternalFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(boxBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(118, 118, 118))
+                .addGap(77, 77, 77))
         );
 
         pack();
@@ -161,15 +186,39 @@ public class PersonalFrame extends javax.swing.JInternalFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        if(tablaPersonal.getSelectedRow()>=0){
+    int filaSeleccionada = tablaPersonal.getSelectedRow();  
+    
+    base.borrarPersonal(tablaPersonal.getValueAt(filaSeleccionada, 0).toString());
+    tablaPersonal.setModel(new DefaultTableModel());
+    datosTabla();
+    tablaPersonal.setModel(modelo);
+}
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        if(tablaPersonal.getSelectedRow()>=0){
+    int filaSeleccionada = tablaPersonal.getSelectedRow();   
+    System.out.println("aaa");
+    personalModificar=(Integer) tablaPersonal.getValueAt(filaSeleccionada, 0);
+    System.out.println(personalModificar);
+    AltaPersonalFrame altaPersonal = new AltaPersonalFrame(null, true, personalModificar);
+        altaPersonal.setVisible(true);
+        altaPersonal.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        altaPersonal.setLocation(600, 150);
+        altaPersonal.setAlwaysOnTop(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccion un trabajador");
+        }
+        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        AltaPersonalFrame altaPersonal = new AltaPersonalFrame(null, true);
+        
+        personalModificar=0;
+        AltaPersonalFrame altaPersonal = new AltaPersonalFrame(null, true, personalModificar);
         altaPersonal.setVisible(true);
         altaPersonal.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
         altaPersonal.setLocation(600, 150);
@@ -185,27 +234,41 @@ public class PersonalFrame extends javax.swing.JInternalFrame {
         contactoPersonal.setAlwaysOnTop(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void boxBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_boxBuscarKeyReleased
         // TODO add your handling code here:
-        RolesPersonalFrame roles= new RolesPersonalFrame(null, true);
-        roles.setVisible(true);
-        roles.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-        roles.setLocation(600, 150);
-        roles.setAlwaysOnTop(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+        tablaPersonal.setModel(new DefaultTableModel());
+        ArrayList<Personal> listaPersonal = base.obtenerPersonalPorCriterio(boxBuscar.getText());
+        modelo.setNumRows(listaPersonal.size());
+        for(int i=0; i<listaPersonal.size();i++){
+            modelo.setValueAt(listaPersonal.get(i).getDni(), i, 0);
+            modelo.setValueAt(listaPersonal.get(i).getRuc(), i, 1);
+            modelo.setValueAt(listaPersonal.get(i).getNombrePersonal(), i, 2);
+            modelo.setValueAt(listaPersonal.get(i).getRolPersonal(), i, 3);
+            modelo.setValueAt(listaPersonal.get(i).getDirPersonal(), i, 4);
+            modelo.setValueAt(listaPersonal.get(i).getDomicilioFiscalPersonal(), i, 5);
+            modelo.setValueAt(listaPersonal.get(i).getFechaNacimientoPersonal(), i, 6);
+            modelo.setValueAt(listaPersonal.get(i).getFechFincontrato(), i, 7);
+            modelo.setValueAt(listaPersonal.get(i).getFechFincontrato(), i, 8);
+            modelo.setValueAt(listaPersonal.get(i).getTiempoLaaboradoPersonal(), i, 9);
+            modelo.setValueAt(listaPersonal.get(i).getSexoPersonal(), i, 10);
+            modelo.setValueAt(listaPersonal.get(i).getEdadPersonal(), i, 11);
+            modelo.setValueAt(listaPersonal.get(i).getCelularPersonal(), i, 12);
+            modelo.setValueAt(listaPersonal.get(i).getTelefonoPerrsonal(), i, 13);
+        }
+        tablaPersonal.setModel(modelo);
+    }//GEN-LAST:event_boxBuscarKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField boxBuscar;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable tablaPersonal;
     // End of variables declaration//GEN-END:variables
 }
